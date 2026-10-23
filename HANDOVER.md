@@ -1,6 +1,11 @@
 # Whack! requirements handover
 
-Working name: **Whack!** Final branding is open. Mac Drums suggests a music app; this should feel like a cheeky toy that makes your Mac react to a tap.
+Original product brief. See [README.md](README.md) for the current implementation,
+setup instructions, and validation status.
+
+Brand: **Whack!** This should feel like a cheeky toy that makes your Mac react to a tap.
+
+The official logo is `Sources/Whack/Resources/whack.png`, copied unchanged from `~/Downloads/whack.png`. Use it in the app and for the T3 Code project icon. The macOS app icon is `Resources/AppIcon.icns`.
 
 ## Goal
 
@@ -42,4 +47,4 @@ Keep the interface small and playful. Prioritise this flow before adding persona
 
 First prove motion-sensor access and audio playback on the actual target MacBook. Sensor compatibility and permissions need verification; do not assume every Apple Silicon model works or that elevated access can always be avoided. Explain any required permission through the app.
 
-Use original or appropriately licensed bundled audio. The first implementation milestone is the complete setup and sound-management flow above. App implementation has not started.
+Use original or appropriately licensed bundled audio. The first implementation milestone is the complete setup and sound-management flow above.
