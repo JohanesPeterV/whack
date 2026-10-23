@@ -23,7 +23,7 @@ import WhackSensor
     @Published var deleteSound: Sound?
     private var library: SoundLibrary?
     private let sensor = MotionSensor()
-    private var detector = TapDetector()
+    private var detector = TapReactionDetector()
     private var player: AVAudioPlayer?
     private var watchdog: Timer?
     private var lastSampleAt: TimeInterval = 0

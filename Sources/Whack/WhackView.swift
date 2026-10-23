@@ -186,7 +186,7 @@ struct WhackView: View {
                 HStack { Text("Sensitivity"); Spacer(); Text(model.preferences.sensitivity < 0.34 ? "Firm" : model.preferences.sensitivity > 0.66 ? "Light" : "Balanced").foregroundStyle(.secondary) }
                 Slider(value: Binding(get: { model.preferences.sensitivity }, set: model.setSensitivity), in: 0...1)
                     .accessibilityLabel("Tap sensitivity")
-                Text("Getting reactions while typing? Move toward Firm.").font(.system(size: 10)).foregroundStyle(.secondary)
+                Text("Typing is muted. Pause briefly, then tap.").font(.system(size: 10)).foregroundStyle(.secondary)
             }
             HStack {
                 Text("Cooldown")

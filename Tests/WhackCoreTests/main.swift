@@ -71,6 +71,14 @@ run("Recalibrate after sleep") { detector.testWakeGapRecalibratesWithoutPhantomT
 run("Warm up after reset and reject invalid samples") { detector.testResetRequiresWarmupAndRejectsInvalidSamples() }
 run("Sensitivity changes the tap threshold") { detector.testHighSensitivityDetectsSmallerImpulse() }
 run("Decode signed Q16 sensor reports") { try detector.testReportDecoderHandlesSignedLittleEndianQ16() }
+let typing = TypingGuardTests()
+run("Confirm a gentle tap after a short keyboard check") { typing.testGentleTapStillReactsWithBoundedDelay() }
+run("Reject recent typing without consuming reaction cooldown") { typing.testRecentTypingIsRejectedWithoutConsumingReactionCooldown() }
+run("Reject a key event that arrives after its vibration") { typing.testFirstKeystrokeArrivingAfterItsVibrationIsRejected() }
+run("Stay quiet through typing and resume taps after a pause") { typing.testContinuousTypingStaysQuietAndTapsResumeAfterPause() }
+run("Cancel pending reactions on reset, playback, and sensitivity changes") { typing.testPendingReactionsCancelOnResetPlaybackAndSensitivityChange() }
+run("Drop stale candidates and reject invalid timing") { typing.testStaleAndInvalidInputCannotConfirmPendingReaction() }
+run("Respect reaction cooldown after confirmation") { typing.testConfirmedReactionsRespectConfiguredCooldown() }
 print("\(testCount) checks, \(failures.count) failures")
 for failure in failures { print(failure) }
 exit(failures.isEmpty ? 0 : 1)

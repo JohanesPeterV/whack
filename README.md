@@ -20,12 +20,15 @@ sound when you gently tap a compatible MacBook.
 - Add your own MP3 or WAV through a file picker or drag and drop.
 - Rename, replace, and delete imported sounds inside the app.
 - Adjust sensitivity, cooldown, and playback volume.
+- Suppress keyboard bumps while typing, including the first keystroke.
 - Remember your sound and settings, with reactions off at each launch.
 - Show helpful messages for unavailable sensors and muted audio output.
 
 Whack keeps its own copy of imported sounds, so moving the original file won't
 break playback. Everything stays on your Mac: no accounts, analytics, microphone
-access, or network service. The app does not monitor your typing.
+access, or network service. To avoid keyboard-triggered reactions, Whack checks
+only the elapsed time since keyboard activity. It does not read or record keys
+or text, and does not install a global keyboard event monitor.
 
 ## Build and run
 
@@ -51,8 +54,13 @@ development; it is not a Developer ID signed, notarized download.
 1. Open Whack, then click the hand icon in the menu bar whenever you need the panel.
 2. Press a sound's play button to check playback; click its name to select it.
 3. Turn on the switch, wait for the listening status, and try a gentle tap.
-4. In Settings, move sensitivity toward **Light** if taps are missed, or **Firm**
-   if ordinary typing causes reactions.
+4. Pause briefly after typing before tapping. In Settings, move sensitivity
+   toward **Light** if taps are missed, or **Firm** if other vibrations trigger them.
+
+The typing guard waits 120 ms before confirming a tap and requires at least
+350 ms without keyboard activity. This catches a keypress whose vibration arrives
+before its keyboard event. Previews remain available while typing. The timing
+check uses Apple's [elapsed-event-time API](https://developer.apple.com/documentation/coregraphics/cgeventsource/secondssincelasteventtype(_:eventtype:)).
 
 Use **Add your own sound** to import audio. The menu beside an imported sound
 offers Rename, Replace, and Delete. Files must be MP3 or WAV, mono or stereo,
@@ -104,9 +112,11 @@ without XCTest. The UI suite requires a logged-in macOS desktop and Accessibilit
 access for the terminal or runner. Its sensor check also requires compatible
 hardware. UI tests temporarily keep the panel open during automation.
 
-On the development Mac, all **20 core checks and 12 UI checks** passed, including
+On the development Mac, all **27 core checks and 12 UI checks** passed, including
 the UI suite against the packaged release build. These checks don't replace
 physical tap, typing, speaker-feedback, and sleep/wake testing on each model.
+The typing regressions cover recent keyboard activity, delayed first-key events,
+typing bursts, resuming taps after a pause, and cancellation during reset/playback.
 
 | Location | Purpose |
 | --- | --- |
